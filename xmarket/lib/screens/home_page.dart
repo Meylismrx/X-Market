@@ -406,7 +406,7 @@ class HomePage extends StatelessWidget {
                       const Icon(Icons.star, color: Colors.amber, size: 16),
                       Text(
                         '${product.rating} (${product.reviewCount})',
-                        style: const TextStyle(fontSize: 10),
+                        style: const TextStyle(fontSize: 12),
                       ),
                     ],
                   ),
