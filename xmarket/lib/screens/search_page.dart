@@ -445,15 +445,24 @@ class _SearchPageState extends State<SearchPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(12),
-                              ),
-                              image: DecorationImage(
-                                image: AssetImage(product.imageUrl),
-                                fit: BoxFit.cover,
-                              ),
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(12),
+                            ),
+                            child: Image.asset(
+                              product.imageUrl,
+                              fit: BoxFit.contain,
+                              width: double.infinity,
+                              height: 150,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: Colors.grey[200],
+                                  child: const Center(
+                                    child: Icon(Icons.error_outline,
+                                        color: Colors.grey),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),

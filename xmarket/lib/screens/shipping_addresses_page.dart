@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/user_provider.dart';
 
 class ShippingAddressesPage extends StatefulWidget {
   const ShippingAddressesPage({super.key});
@@ -69,7 +72,19 @@ class _ShippingAddressesPageState extends State<ShippingAddressesPage> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState?.validate() ?? false) {
-                // TODO: Save the new address
+                final address =
+                    '${_addressController.text}\n${_cityController.text}, ${_zipController.text}\nUnited States';
+                context.read<UserProvider>().addShippingAddress(
+                      _nameController.text,
+                      address,
+                    );
+
+                // Clear the form
+                _nameController.clear();
+                _addressController.clear();
+                _cityController.clear();
+                _zipController.clear();
+
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Address added successfully!')),
@@ -85,6 +100,9 @@ class _ShippingAddressesPageState extends State<ShippingAddressesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
+    final addresses = userProvider.shippingAddresses;
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -129,19 +147,24 @@ class _ShippingAddressesPageState extends State<ShippingAddressesPage> {
             Container(
               color: Colors.white,
               child: Column(
-                children: [
-                  _buildAddressTile(
-                    'Home',
-                    '123 Main St, Apt 4B\nNew York, NY 10001\nUnited States',
-                    true,
-                  ),
-                  const Divider(height: 1),
-                  _buildAddressTile(
-                    'Office',
-                    '456 Business Ave, Suite 200\nNew York, NY 10002\nUnited States',
-                    false,
-                  ),
-                ],
+                children: addresses.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final address = entry.value;
+                  return Column(
+                    children: [
+                      _buildAddressTile(
+                        address['name'],
+                        address['address'],
+                        address['isDefault'],
+                        onTap: () {
+                          userProvider.setDefaultShippingAddress(index);
+                        },
+                      ),
+                      if (index < addresses.length - 1)
+                        const Divider(height: 1),
+                    ],
+                  );
+                }).toList(),
               ),
             ),
           ],
@@ -153,8 +176,9 @@ class _ShippingAddressesPageState extends State<ShippingAddressesPage> {
   Widget _buildAddressTile(
     String title,
     String address,
-    bool isDefault,
-  ) {
+    bool isDefault, {
+    required VoidCallback onTap,
+  }) {
     return ListTile(
       leading: const Icon(Icons.location_on),
       title: Text(title),
@@ -165,7 +189,10 @@ class _ShippingAddressesPageState extends State<ShippingAddressesPage> {
               backgroundColor: Colors.green,
               labelStyle: TextStyle(color: Colors.white),
             )
-          : null,
+          : TextButton(
+              onPressed: onTap,
+              child: const Text('Set as Default'),
+            ),
     );
   }
 }

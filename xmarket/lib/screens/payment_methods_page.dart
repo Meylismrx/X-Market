@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/user_provider.dart';
 
 class PaymentMethodsPage extends StatefulWidget {
   const PaymentMethodsPage({super.key});
@@ -12,20 +15,6 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
   final _cardNumberController = TextEditingController();
   final _expiryController = TextEditingController();
   final _cvvController = TextEditingController();
-
-  // List to store payment methods
-  final List<Map<String, dynamic>> _paymentMethods = [
-    {
-      'title': 'Visa ending in 4242',
-      'subtitle': 'Expires 12/25',
-      'isDefault': true,
-    },
-    {
-      'title': 'Mastercard ending in 8888',
-      'subtitle': 'Expires 08/24',
-      'isDefault': false,
-    },
-  ];
 
   @override
   void dispose() {
@@ -74,16 +63,13 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState?.validate() ?? false) {
-                // Add new card to the list
-                setState(() {
-                  _paymentMethods.add({
-                    'title':
-                        'Card ending in ${_cardNumberController.text.substring(_cardNumberController.text.length - 4)}',
-                    'subtitle': 'Expires ${_expiryController.text}',
-                    'isDefault': _paymentMethods
-                        .isEmpty, // Make default if it's the first card
-                  });
-                });
+                final cardNumber = _cardNumberController.text;
+                final lastFourDigits =
+                    cardNumber.substring(cardNumber.length - 4);
+                final title = 'Card ending in $lastFourDigits';
+                final subtitle = 'Expires ${_expiryController.text}';
+
+                context.read<UserProvider>().addPaymentMethod(title, subtitle);
 
                 // Clear the form
                 _cardNumberController.clear();
@@ -105,6 +91,9 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
+    final paymentMethods = userProvider.paymentMethods;
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -122,7 +111,6 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Add New Card Button
             Padding(
               padding: const EdgeInsets.all(16),
               child: ElevatedButton.icon(
@@ -150,21 +138,25 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
             Container(
               color: Colors.white,
               child: Column(
-                children: [
-                  _buildCardTile(
-                    'Visa ending in 4242',
-                    'Expires 12/25',
-                    Icons.credit_card,
-                    true,
-                  ),
-                  const Divider(height: 1),
-                  _buildCardTile(
-                    'Mastercard ending in 8888',
-                    'Expires 08/24',
-                    Icons.credit_card,
-                    false,
-                  ),
-                ],
+                children: paymentMethods.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final method = entry.value;
+                  return Column(
+                    children: [
+                      _buildCardTile(
+                        method['title'],
+                        method['subtitle'],
+                        Icons.credit_card,
+                        method['isDefault'],
+                        onTap: () {
+                          userProvider.setDefaultPaymentMethod(index);
+                        },
+                      ),
+                      if (index < paymentMethods.length - 1)
+                        const Divider(height: 1),
+                    ],
+                  );
+                }).toList(),
               ),
             ),
           ],
@@ -177,8 +169,9 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
     String title,
     String subtitle,
     IconData icon,
-    bool isDefault,
-  ) {
+    bool isDefault, {
+    required VoidCallback onTap,
+  }) {
     return ListTile(
       leading: Icon(icon),
       title: Text(title),
@@ -189,7 +182,10 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
               backgroundColor: Colors.green,
               labelStyle: TextStyle(color: Colors.white),
             )
-          : null,
+          : TextButton(
+              onPressed: onTap,
+              child: const Text('Set as Default'),
+            ),
     );
   }
 }

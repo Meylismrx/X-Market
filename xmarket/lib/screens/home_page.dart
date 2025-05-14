@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
         description:
             'Beautiful handcrafted ceramic mug set in vibrant red color. Perfect for your morning coffee or tea. Set includes 6 mugs.',
         price: 59.99,
-        imageUrl: 'assets/images/red_mug_set.jpg',
+        imageUrl: 'lib/assets/images/red_mug_set.jpg',
         sellerName: 'CeramicArtistry',
         category: 'Home Decor',
         rating: 4.8,
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
         description:
             'Premium handcrafted leather wallet with red interior. Features multiple card slots and bill compartments.',
         price: 45.99,
-        imageUrl: 'assets/images/leather_wallet.jpg',
+        imageUrl: 'lib/assets/images/leather_wallet.jpg',
         sellerName: 'LeatherCraftsman',
         category: 'Accessories',
         rating: 4.9,
@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
         description:
             'Elegant handwoven cotton scarf with traditional patterns. Perfect for all seasons.',
         price: 35.99,
-        imageUrl: 'assets/images/handwoven_cotton_scarf.jpg',
+        imageUrl: 'lib/assets/images/handwoven_cotton_scarf.jpg',
         sellerName: 'WeaveCraft',
         category: 'Accessories',
         rating: 4.7,
@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
         description:
             'Handcrafted wooden cutting board made from sustainable bamboo. Features juice groove and non-slip feet.',
         price: 49.99,
-        imageUrl: 'assets/images/wooden_cutting_board.jpg',
+        imageUrl: 'lib/assets/images/wooden_cutting_board.jpg',
         sellerName: 'WoodWorks',
         category: 'Kitchen',
         rating: 4.9,
@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
         description:
             'Handcrafted silver pendant necklace with unique geometric design. Comes with adjustable chain.',
         price: 65.99,
-        imageUrl: 'assets/images/silver_pendant_necklace.jpg',
+        imageUrl: 'lib/assets/images/silver_pendant_necklace.jpg',
         sellerName: 'SilverSmith',
         category: 'Jewelry',
         rating: 4.8,
@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
         description:
             'Beautiful hand-knotted macrame wall hanging. Adds a bohemian touch to any room.',
         price: 39.99,
-        imageUrl: 'assets/images/marcame_wall_hanging.jpg',
+        imageUrl: 'lib/assets/images/marcame_wall_hanging.jpg',
         sellerName: 'KnotCraft',
         category: 'Home Decor',
         rating: 4.6,
@@ -232,14 +232,22 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage(product.imageUrl),
-                  fit: BoxFit.cover,
-                ),
+            child: ClipRRect(
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(12)),
+              child: Image.asset(
+                product.imageUrl,
+                fit: BoxFit.contain,
+                width: double.infinity,
+                height: 150,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey[200],
+                    child: const Center(
+                      child: Icon(Icons.error_outline, color: Colors.grey),
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -300,9 +308,23 @@ class HomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage(product.imageUrl),
-                  fit: BoxFit.cover,
+                color: Colors.grey[100],
+              ),
+              child: ClipRRect(
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(12)),
+                child: Image.asset(
+                  product.imageUrl,
+                  fit: BoxFit.contain,
+                  width: double.infinity,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey[200],
+                      child: const Center(
+                        child: Icon(Icons.error_outline, color: Colors.grey),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

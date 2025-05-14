@@ -43,11 +43,22 @@ class ProductDetailsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Product Image
-            Image.asset(
-              product.imageUrl,
+            Container(
               height: 300,
               width: double.infinity,
-              fit: BoxFit.cover,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  product.imageUrl,
+                  fit: BoxFit.contain,
+                  width: double.infinity,
+                  height: 300,
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
