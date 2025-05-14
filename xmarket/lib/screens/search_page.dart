@@ -326,12 +326,34 @@ class _SearchPageState extends State<SearchPage> {
   ];
 
   List<Product> get _filteredProducts {
-    if (_selectedCategory == 'All') {
-      return _allProducts;
+    var filtered = _allProducts;
+
+    // Apply category filter
+    if (_selectedCategory != 'All') {
+      filtered = filtered
+          .where((product) => product.category == _selectedCategory)
+          .toList();
     }
-    return _allProducts
-        .where((product) => product.category == _selectedCategory)
-        .toList();
+
+    // Apply search text filter
+    if (_searchController.text.isNotEmpty) {
+      final searchText = _searchController.text.toLowerCase();
+      filtered = filtered.where((product) {
+        return product.name.toLowerCase().contains(searchText) ||
+            product.description.toLowerCase().contains(searchText) ||
+            product.category.toLowerCase().contains(searchText);
+      }).toList();
+    }
+
+    return filtered;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(() {
+      setState(() {}); // Trigger rebuild when search text changes
+    });
   }
 
   @override
@@ -349,12 +371,18 @@ class _SearchPageState extends State<SearchPage> {
         elevation: 0,
         title: TextField(
           controller: _searchController,
+          onChanged: (value) {
+            setState(() {}); // Trigger rebuild when text changes
+          },
           decoration: InputDecoration(
             hintText: 'Search handmade items...',
             border: InputBorder.none,
             suffixIcon: IconButton(
               icon: const Icon(Icons.clear),
-              onPressed: () => _searchController.clear(),
+              onPressed: () {
+                _searchController.clear();
+                setState(() {}); // Trigger rebuild when cleared
+              },
             ),
           ),
         ),
