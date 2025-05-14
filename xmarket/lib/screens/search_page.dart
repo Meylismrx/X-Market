@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../models/product.dart';
+import 'product_details_page.dart';
+
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
 
@@ -12,6 +15,324 @@ class _SearchPageState extends State<SearchPage> {
   String _selectedCategory = 'All';
   RangeValues _priceRange = const RangeValues(0, 1000);
   double _minRating = 0;
+
+  final List<Product> _allProducts = [
+    // Home Decor Products
+    Product(
+      id: '1',
+      name: 'Red Ceramic Mug Set',
+      description:
+          'Beautiful handcrafted ceramic mug set in vibrant red color. Perfect for your morning coffee or tea. Set includes 6 mugs.',
+      price: 59.99,
+      imageUrl: 'lib/assets/images/red_mug_set.jpg',
+      sellerName: 'CeramicArtistry',
+      category: 'Home Decor',
+      rating: 4.8,
+      reviewCount: 156,
+      isHandmade: true,
+      materials: 'Premium Ceramic, Lead-free Glaze',
+      shippingTime: '5-7 days',
+    ),
+    Product(
+      id: '2',
+      name: 'Macrame Wall Hanging',
+      description:
+          'Beautiful hand-knotted macrame wall hanging. Adds a bohemian touch to any room.',
+      price: 39.99,
+      imageUrl: 'lib/assets/images/marcame_wall_hanging.jpg',
+      sellerName: 'KnotCraft',
+      category: 'Home Decor',
+      rating: 4.6,
+      reviewCount: 67,
+      isHandmade: true,
+      materials: 'Natural Cotton Rope',
+      shippingTime: '5-7 days',
+    ),
+    Product(
+      id: '3',
+      name: 'Handmade Ceramic Vase',
+      description:
+          'Elegant hand-thrown ceramic vase with unique glaze pattern. Perfect for fresh flowers.',
+      price: 45.99,
+      imageUrl: 'lib/assets/images/handmade_ceramic_vase.jpg',
+      sellerName: 'CeramicArtistry',
+      category: 'Home Decor',
+      rating: 4.7,
+      reviewCount: 89,
+      isHandmade: true,
+      materials: 'Premium Ceramic, Lead-free Glaze',
+      shippingTime: '4-6 days',
+    ),
+    Product(
+      id: '4',
+      name: 'Wooden Photo Frame',
+      description:
+          'Handcrafted wooden photo frame with natural finish. Perfect for your favorite memories.',
+      price: 29.99,
+      imageUrl: 'lib/assets/images/wooden_photo_frame.jpg',
+      sellerName: 'WoodWorks',
+      category: 'Home Decor',
+      rating: 4.5,
+      reviewCount: 42,
+      isHandmade: true,
+      materials: 'Sustainable Wood',
+      shippingTime: '3-5 days',
+    ),
+
+    // Accessories Products
+    Product(
+      id: '5',
+      name: 'Leather Bi-fold Wallet',
+      description:
+          'Premium handcrafted leather wallet with red interior. Features multiple card slots and bill compartments.',
+      price: 45.99,
+      imageUrl: 'lib/assets/images/leather_wallet.jpg',
+      sellerName: 'LeatherCraftsman',
+      category: 'Accessories',
+      rating: 4.9,
+      reviewCount: 92,
+      isHandmade: true,
+      materials: 'Genuine Leather, Metal Hardware',
+      shippingTime: '3-5 days',
+    ),
+    Product(
+      id: '6',
+      name: 'Handwoven Cotton Scarf',
+      description:
+          'Elegant handwoven cotton scarf with traditional patterns. Perfect for all seasons.',
+      price: 35.99,
+      imageUrl: 'lib/assets/images/handwoven_cotton_scarf.jpg',
+      sellerName: 'WeaveCraft',
+      category: 'Accessories',
+      rating: 4.7,
+      reviewCount: 78,
+      isHandmade: true,
+      materials: '100% Organic Cotton',
+      shippingTime: '3-4 days',
+    ),
+    Product(
+      id: '7',
+      name: 'Leather Crossbody Bag',
+      description:
+          'Handcrafted leather crossbody bag with adjustable strap. Perfect for everyday use.',
+      price: 79.99,
+      imageUrl: 'lib/assets/images/leather_crossbody_bag.jpg',
+      sellerName: 'LeatherCraftsman',
+      category: 'Accessories',
+      rating: 4.8,
+      reviewCount: 124,
+      isHandmade: true,
+      materials: 'Genuine Leather, Metal Hardware',
+      shippingTime: '4-6 days',
+    ),
+    Product(
+      id: '8',
+      name: 'Handmade Silk Scarf',
+      description:
+          'Luxurious hand-painted silk scarf with unique design. Adds elegance to any outfit.',
+      price: 55.99,
+      imageUrl: 'lib/assets/images/handmade_silk_scarf.jpg',
+      sellerName: 'SilkArt',
+      category: 'Accessories',
+      rating: 4.9,
+      reviewCount: 56,
+      isHandmade: true,
+      materials: '100% Silk',
+      shippingTime: '2-3 days',
+    ),
+
+    // Kitchen Products
+    Product(
+      id: '9',
+      name: 'Wooden Cutting Board',
+      description:
+          'Handcrafted wooden cutting board made from sustainable bamboo. Features juice groove and non-slip feet.',
+      price: 49.99,
+      imageUrl: 'lib/assets/images/wooden_cutting_board.jpg',
+      sellerName: 'WoodWorks',
+      category: 'Kitchen',
+      rating: 4.9,
+      reviewCount: 124,
+      isHandmade: true,
+      materials: 'Sustainable Bamboo',
+      shippingTime: '4-6 days',
+    ),
+    Product(
+      id: '10',
+      name: 'Handmade Ceramic Bowl Set',
+      description:
+          'Set of 4 hand-thrown ceramic bowls with unique glaze patterns. Perfect for serving.',
+      price: 69.99,
+      imageUrl: 'lib/assets/images/handmade_ceramic_bowl_set.jpg',
+      sellerName: 'CeramicArtistry',
+      category: 'Kitchen',
+      rating: 4.8,
+      reviewCount: 98,
+      isHandmade: true,
+      materials: 'Premium Ceramic, Lead-free Glaze',
+      shippingTime: '5-7 days',
+    ),
+    Product(
+      id: '11',
+      name: 'Wooden Utensil Set',
+      description:
+          'Set of 5 handcrafted wooden cooking utensils. Made from sustainable wood.',
+      price: 39.99,
+      imageUrl: 'lib/assets/images/wooden_utensils_set.jpg',
+      sellerName: 'WoodWorks',
+      category: 'Kitchen',
+      rating: 4.7,
+      reviewCount: 76,
+      isHandmade: true,
+      materials: 'Sustainable Wood',
+      shippingTime: '3-5 days',
+    ),
+    Product(
+      id: '12',
+      name: 'Handmade Ceramic Plates',
+      description:
+          'Set of 6 hand-thrown ceramic dinner plates with unique designs.',
+      price: 89.99,
+      imageUrl: 'lib/assets/images/handmade_ceramic_plates.jpg',
+      sellerName: 'CeramicArtistry',
+      category: 'Kitchen',
+      rating: 4.9,
+      reviewCount: 112,
+      isHandmade: true,
+      materials: 'Premium Ceramic, Lead-free Glaze',
+      shippingTime: '5-7 days',
+    ),
+
+    // Jewelry Products
+    Product(
+      id: '13',
+      name: 'Silver Pendant Necklace',
+      description:
+          'Handcrafted silver pendant necklace with unique geometric design. Comes with adjustable chain.',
+      price: 65.99,
+      imageUrl: 'lib/assets/images/silver_pendant_necklace.jpg',
+      sellerName: 'SilverSmith',
+      category: 'Jewelry',
+      rating: 4.8,
+      reviewCount: 89,
+      isHandmade: true,
+      materials: '925 Sterling Silver',
+      shippingTime: '2-3 days',
+    ),
+    Product(
+      id: '14',
+      name: 'Handmade Beaded Bracelet',
+      description:
+          'Beautiful beaded bracelet with semi-precious stones. Adjustable size.',
+      price: 29.99,
+      imageUrl: 'lib/assets/images/handmade_beaded_bracelet.jpg',
+      sellerName: 'BeadCraft',
+      category: 'Jewelry',
+      rating: 4.6,
+      reviewCount: 45,
+      isHandmade: true,
+      materials: 'Semi-precious Stones, Sterling Silver',
+      shippingTime: '2-3 days',
+    ),
+    Product(
+      id: '15',
+      name: 'Gold-plated Hoop Earrings',
+      description: 'Handcrafted gold-plated hoop earrings with unique texture.',
+      price: 39.99,
+      imageUrl: 'lib/assets/images/gold-plated_hoop_earrings.jpg',
+      sellerName: 'GoldCraft',
+      category: 'Jewelry',
+      rating: 4.7,
+      reviewCount: 67,
+      isHandmade: true,
+      materials: 'Gold-plated Brass',
+      shippingTime: '2-3 days',
+    ),
+    Product(
+      id: '16',
+      name: 'Handmade Gemstone Ring',
+      description:
+          'Unique handcrafted ring featuring natural gemstone. Available in various sizes.',
+      price: 49.99,
+      imageUrl: 'lib/assets/images/handmade_gemstone_ring.jpg',
+      sellerName: 'GemCraft',
+      category: 'Jewelry',
+      rating: 4.8,
+      reviewCount: 78,
+      isHandmade: true,
+      materials: 'Natural Gemstone, Sterling Silver',
+      shippingTime: '2-3 days',
+    ),
+
+    // Crafts Products
+    Product(
+      id: '17',
+      name: 'Handmade Soap Set',
+      description:
+          'Set of 6 handmade soaps with natural ingredients and essential oils.',
+      price: 34.99,
+      imageUrl: 'lib/assets/images/handmade_soap_set.jpg',
+      sellerName: 'SoapCraft',
+      category: 'Crafts',
+      rating: 4.7,
+      reviewCount: 56,
+      isHandmade: true,
+      materials: 'Natural Ingredients, Essential Oils',
+      shippingTime: '3-4 days',
+    ),
+    Product(
+      id: '18',
+      name: 'Hand-painted Candles',
+      description: 'Set of 3 hand-painted soy candles with unique designs.',
+      price: 29.99,
+      imageUrl: 'lib/assets/images/handmade_painted_candles.jpg',
+      sellerName: 'CandleArt',
+      category: 'Crafts',
+      rating: 4.6,
+      reviewCount: 42,
+      isHandmade: true,
+      materials: 'Soy Wax, Natural Dyes',
+      shippingTime: '3-4 days',
+    ),
+    Product(
+      id: '19',
+      name: 'Handmade Paper Notebook',
+      description: 'Handcrafted paper notebook with unique cover design.',
+      price: 19.99,
+      imageUrl: 'lib/assets/images/handmade_paper_notebook.jpg',
+      sellerName: 'PaperCraft',
+      category: 'Crafts',
+      rating: 4.5,
+      reviewCount: 34,
+      isHandmade: true,
+      materials: 'Recycled Paper, Natural Dyes',
+      shippingTime: '2-3 days',
+    ),
+    Product(
+      id: '20',
+      name: 'Handmade Potpourri',
+      description:
+          'Natural potpourri mix with dried flowers and essential oils.',
+      price: 24.99,
+      imageUrl: 'lib/assets/images/handmade_potpourri.jpg',
+      sellerName: 'NatureCraft',
+      category: 'Crafts',
+      rating: 4.6,
+      reviewCount: 38,
+      isHandmade: true,
+      materials: 'Dried Flowers, Essential Oils',
+      shippingTime: '2-3 days',
+    ),
+  ];
+
+  List<Product> get _filteredProducts {
+    if (_selectedCategory == 'All') {
+      return _allProducts;
+    }
+    return _allProducts
+        .where((product) => product.category == _selectedCategory)
+        .toList();
+  }
 
   @override
   void dispose() {
@@ -73,10 +394,80 @@ class _SearchPageState extends State<SearchPage> {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
               ),
-              itemCount: 0, // Replace with actual search results
+              itemCount: _filteredProducts.length,
               itemBuilder: (context, index) {
-                return const Center(
-                  child: Text('No results found'),
+                final product = _filteredProducts[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetailsPage(
+                          product: product,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(12),
+                              ),
+                              image: DecorationImage(
+                                image: AssetImage(product.imageUrl),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                product.name,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                '\$${product.price.toStringAsFixed(2)}',
+                                style: const TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  const Icon(Icons.star,
+                                      color: Colors.amber, size: 16),
+                                  Text(
+                                    '${product.rating} (${product.reviewCount})',
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               },
             ),
@@ -166,7 +557,7 @@ class _SearchPageState extends State<SearchPage> {
                     min: 0,
                     max: 5,
                     divisions: 5,
-                    label: _minRating.toString(),
+                    label: _minRating.toStringAsFixed(1),
                     onChanged: (value) {
                       setState(() {
                         _minRating = value;
@@ -179,8 +570,8 @@ class _SearchPageState extends State<SearchPage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
+                        // TODO: Apply filters
                         Navigator.pop(context);
-                        // Apply filters
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,

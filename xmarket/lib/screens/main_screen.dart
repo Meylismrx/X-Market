@@ -18,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = [
     const HomePage(),
     const SearchPage(),
-    const CartPage(cartItems: []), // Will be updated with actual cart items
+    const CartPage(),
     const ProfilePage(),
   ];
 

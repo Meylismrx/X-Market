@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/user_provider.dart';
 
 class OrderConfirmationPage extends StatelessWidget {
   const OrderConfirmationPage({super.key});
@@ -71,15 +74,29 @@ class OrderConfirmationPage extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             ElevatedButton(
-              onPressed: () => Navigator.pushReplacementNamed(context, '/main'),
+              onPressed: () {
+                // Add a sample order to the user's order history
+                context.read<UserProvider>().addOrder(
+                      Order(
+                        id: DateTime.now().millisecondsSinceEpoch.toString(),
+                        productName: 'Sample Product',
+                        status: 'Processing',
+                        date: DateTime.now().toString().split(' ')[0],
+                        price: 99.99,
+                      ),
+                    );
+                Navigator.pushReplacementNamed(context, '/main');
+              },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
+                backgroundColor: Colors.green,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 16,
+                ),
               ),
               child: const Text(
                 'Continue Shopping',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(color: Colors.white),
               ),
             ),
             const SizedBox(height: 16),

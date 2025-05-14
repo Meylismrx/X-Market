@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
 
 class CartPage extends StatelessWidget {
-  const CartPage({super.key, required List cartItems});
+  const CartPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/cart_provider.dart';
+import 'providers/user_provider.dart';
 import 'screens/checkout_page.dart';
 import 'screens/login_page.dart';
 import 'screens/main_screen.dart';
+import 'screens/notifications_page.dart';
 import 'screens/order_confirmation_page.dart';
+import 'screens/payment_methods_page.dart';
+import 'screens/privacy_settings_page.dart';
+import 'screens/shipping_addresses_page.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: const MrXmarket(),
     ),
@@ -55,6 +61,10 @@ class MrXmarket extends StatelessWidget {
           );
         },
         '/order-confirmation': (context) => const OrderConfirmationPage(),
+        '/payment-methods': (context) => const PaymentMethodsPage(),
+        '/shipping-addresses': (context) => const ShippingAddressesPage(),
+        '/notifications': (context) => const NotificationsPage(),
+        '/privacy-settings': (context) => const PrivacySettingsPage(),
       },
     );
   }

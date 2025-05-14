@@ -32,6 +32,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   provider: ^6.0.5
+  shared_preferences: ^2.2.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -63,10 +64,23 @@ flutter:
   assets:
     - lib/assets/images/red_mug_set.jpg
     - lib/assets/images/leather_wallet.jpg
-    - lib/assets/images/cotton_scarf.jpg
-    - lib/assets/images/cutting_board.jpg
-    - lib/assets/images/silver_necklace.jpg
-    - lib/assets/images/macrame.jpg
+    - lib/assets/images/handwoven_cotton_scarf.jpg
+    - lib/assets/images/wooden_cutting_board.jpg
+    - lib/assets/images/silver_pendant_necklace.jpg
+    - lib/assets/images/handmade_ceramic_vase.jpg
+    - lib/assets/images/leather_crossbody_bag.jpg
+    - lib/assets/images/handmade_silk_scarf.jpg
+    - lib/assets/images/wooden_photo_frame.jpg
+    - lib/assets/images/handmade_gemstone_ring.jpg
+    - lib/assets/images/handmade_soap_set.jpg
+    - lib/assets/images/hand-painted_candles.jpg
+    - lib/assets/images/handmade_paper_notebook.jpg
+    - lib/assets/images/handmade_potpourri.jpg
+    - lib/assets/images/wooden_utensil_set.png
+    - lib/assets/images/gold-plated_hoop_earrings.jpg
+    - lib/assets/images/handmade_beaded_bracelet.jpg
+    - lib/assets/images/handmade_ceramic_bowl_set.jpg
+    - lib/assets/images/handmade_ceramic_plates.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/user_provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -22,7 +25,8 @@ class _LoginPageState extends State<LoginPage> {
 
   void _handleLogin() {
     if (_formKey.currentState!.validate()) {
-      // TODO: Implement actual login logic here
+      // Store the user's email
+      context.read<UserProvider>().setUser(_emailController.text);
       Navigator.pushReplacementNamed(context, '/main');
     }
   }

@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
         description:
             'Beautiful handcrafted ceramic mug set in vibrant red color. Perfect for your morning coffee or tea. Set includes 6 mugs.',
         price: 59.99,
-        imageUrl: 'lib/assets/images/red_mug_set.jpg',
+        imageUrl: 'assets/images/red_mug_set.jpg',
         sellerName: 'CeramicArtistry',
         category: 'Home Decor',
         rating: 4.8,
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
         description:
             'Premium handcrafted leather wallet with red interior. Features multiple card slots and bill compartments.',
         price: 45.99,
-        imageUrl: 'lib/assets/images/leather_wallet.jpg',
+        imageUrl: 'assets/images/leather_wallet.jpg',
         sellerName: 'LeatherCraftsman',
         category: 'Accessories',
         rating: 4.9,
@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
         description:
             'Elegant handwoven cotton scarf with traditional patterns. Perfect for all seasons.',
         price: 35.99,
-        imageUrl: 'lib/assets/images/cotton_scarf.jpg',
+        imageUrl: 'assets/images/handwoven_cotton_scarf.jpg',
         sellerName: 'WeaveCraft',
         category: 'Accessories',
         rating: 4.7,
@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
         description:
             'Handcrafted wooden cutting board made from sustainable bamboo. Features juice groove and non-slip feet.',
         price: 49.99,
-        imageUrl: 'lib/assets/images/cutting_board.jpg',
+        imageUrl: 'assets/images/wooden_cutting_board.jpg',
         sellerName: 'WoodWorks',
         category: 'Kitchen',
         rating: 4.9,
@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
         description:
             'Handcrafted silver pendant necklace with unique geometric design. Comes with adjustable chain.',
         price: 65.99,
-        imageUrl: 'lib/assets/images/silver_necklace.jpg',
+        imageUrl: 'assets/images/silver_pendant_necklace.jpg',
         sellerName: 'SilverSmith',
         category: 'Jewelry',
         rating: 4.8,
@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
         description:
             'Beautiful hand-knotted macrame wall hanging. Adds a bohemian touch to any room.',
         price: 39.99,
-        imageUrl: 'lib/assets/images/macrame.jpg',
+        imageUrl: 'assets/images/marcame_wall_hanging.jpg',
         sellerName: 'KnotCraft',
         category: 'Home Decor',
         rating: 4.6,
@@ -132,65 +132,6 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Categories Section
-            Container(
-              height: 100,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  _buildCategoryChip('All', () {
-                    // TODO: Implement category filtering
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Category filtering coming soon!'),
-                      ),
-                    );
-                  }),
-                  _buildCategoryChip('Home Decor', () {
-                    // TODO: Implement category filtering
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Category filtering coming soon!'),
-                      ),
-                    );
-                  }),
-                  _buildCategoryChip('Accessories', () {
-                    // TODO: Implement category filtering
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Category filtering coming soon!'),
-                      ),
-                    );
-                  }),
-                  _buildCategoryChip('Kitchen', () {
-                    // TODO: Implement category filtering
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Category filtering coming soon!'),
-                      ),
-                    );
-                  }),
-                  _buildCategoryChip('Jewelry', () {
-                    // TODO: Implement category filtering
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Category filtering coming soon!'),
-                      ),
-                    );
-                  }),
-                  _buildCategoryChip('Crafts', () {
-                    // TODO: Implement category filtering
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Category filtering coming soon!'),
-                      ),
-                    );
-                  }),
-                ],
-              ),
-            ),
-
             // Featured Products Section
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -276,20 +217,6 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCategoryChip(String category, VoidCallback onTap) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: InkWell(
-        onTap: onTap,
-        child: Chip(
-          label: Text(category),
-          backgroundColor: Colors.white,
-          side: const BorderSide(color: Colors.grey),
         ),
       ),
     );
