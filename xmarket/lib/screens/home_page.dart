@@ -3,8 +3,36 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 import 'product_details_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool _isSearchVisible = false;
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  List<Product> _filterProducts(List<Product> products) {
+    if (_searchQuery.isEmpty) return products;
+    return products.where((product) {
+      final name = product.name.toLowerCase();
+      final description = product.description.toLowerCase();
+      final category = product.category.toLowerCase();
+      final query = _searchQuery.toLowerCase();
+      return name.contains(query) ||
+          description.contains(query) ||
+          category.contains(query);
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,23 +129,47 @@ class HomePage extends StatelessWidget {
       ),
     ];
 
+    final filteredProducts = _filterProducts(featuredProducts);
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
-          'Handmade Market',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: _isSearchVisible
+            ? TextField(
+                controller: _searchController,
+                decoration: const InputDecoration(
+                  hintText: 'Search products...',
+                  border: InputBorder.none,
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _searchQuery = value;
+                  });
+                },
+              )
+            : const Text(
+                'Handmade Market',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.black),
+            icon: Icon(
+              _isSearchVisible ? Icons.close : Icons.search,
+              color: Colors.black,
+            ),
             onPressed: () {
-              Navigator.pushNamed(context, '/search');
+              setState(() {
+                _isSearchVisible = !_isSearchVisible;
+                if (!_isSearchVisible) {
+                  _searchController.clear();
+                  _searchQuery = '';
+                }
+              });
             },
           ),
           IconButton(
@@ -156,7 +208,7 @@ class HomePage extends StatelessWidget {
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
                     ),
-                    itemCount: featuredProducts.length,
+                    itemCount: filteredProducts.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
@@ -164,12 +216,12 @@ class HomePage extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => ProductDetailsPage(
-                                product: featuredProducts[index],
+                                product: filteredProducts[index],
                               ),
                             ),
                           );
                         },
-                        child: _buildProductCard(featuredProducts[index]),
+                        child: _buildProductCard(filteredProducts[index]),
                       );
                     },
                   ),
@@ -195,7 +247,7 @@ class HomePage extends StatelessWidget {
                     height: 250,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: featuredProducts.length,
+                      itemCount: filteredProducts.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
@@ -203,12 +255,12 @@ class HomePage extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ProductDetailsPage(
-                                  product: featuredProducts[index],
+                                  product: filteredProducts[index],
                                 ),
                               ),
                             );
                           },
-                          child: _buildNewArrivalCard(featuredProducts[index]),
+                          child: _buildNewArrivalCard(filteredProducts[index]),
                         );
                       },
                     ),
