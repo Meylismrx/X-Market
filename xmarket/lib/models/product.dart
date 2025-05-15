@@ -11,6 +11,7 @@ class Product {
   final bool isHandmade;
   final String materials;
   final String shippingTime;
+  final String sellerId;
 
   Product({
     required this.id,
@@ -20,10 +21,11 @@ class Product {
     required this.imageUrl,
     required this.sellerName,
     required this.category,
-    required this.rating,
-    required this.reviewCount,
-    required this.isHandmade,
-    required this.materials,
-    required this.shippingTime,
+    this.rating = 0.0,
+    this.reviewCount = 0,
+    this.isHandmade = true,
+    this.materials = '',
+    this.shippingTime = '3-5 days',
+    required this.sellerId,
   });
 }

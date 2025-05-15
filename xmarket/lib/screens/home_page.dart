@@ -42,6 +42,7 @@ class _HomePageState extends State<HomePage> {
         name: 'Red Ceramic Mug Set',
         description:
             'Beautiful handcrafted ceramic mug set in vibrant red color. Perfect for your morning coffee or tea. Set includes 6 mugs.',
+        sellerId: 'ceramic_artistry@example.com',
         price: 59.99,
         imageUrl: 'lib/assets/images/red_mug_set.jpg',
         sellerName: 'CeramicArtistry',
@@ -57,6 +58,7 @@ class _HomePageState extends State<HomePage> {
         name: 'Leather Bi-fold Wallet',
         description:
             'Premium handcrafted leather wallet with red interior. Features multiple card slots and bill compartments.',
+        sellerId: 'leather_craftsman@example.com',
         price: 45.99,
         imageUrl: 'lib/assets/images/leather_wallet.jpg',
         sellerName: 'LeatherCraftsman',
@@ -72,6 +74,7 @@ class _HomePageState extends State<HomePage> {
         name: 'Handwoven Cotton Scarf',
         description:
             'Elegant handwoven cotton scarf with traditional patterns. Perfect for all seasons.',
+        sellerId: 'weave_craft@example.com',
         price: 35.99,
         imageUrl: 'lib/assets/images/handwoven_cotton_scarf.jpg',
         sellerName: 'WeaveCraft',
@@ -87,6 +90,7 @@ class _HomePageState extends State<HomePage> {
         name: 'Wooden Cutting Board',
         description:
             'Handcrafted wooden cutting board made from sustainable bamboo. Features juice groove and non-slip feet.',
+        sellerId: 'wood_works@example.com',
         price: 49.99,
         imageUrl: 'lib/assets/images/wooden_cutting_board.jpg',
         sellerName: 'WoodWorks',
@@ -102,6 +106,7 @@ class _HomePageState extends State<HomePage> {
         name: 'Silver Pendant Necklace',
         description:
             'Handcrafted silver pendant necklace with unique geometric design. Comes with adjustable chain.',
+        sellerId: 'silver_smith@example.com',
         price: 65.99,
         imageUrl: 'lib/assets/images/silver_pendant_necklace.jpg',
         sellerName: 'SilverSmith',
@@ -117,6 +122,7 @@ class _HomePageState extends State<HomePage> {
         name: 'Macrame Wall Hanging',
         description:
             'Beautiful hand-knotted macrame wall hanging. Adds a bohemian touch to any room.',
+        sellerId: 'knot_craft@example.com',
         price: 39.99,
         imageUrl: 'lib/assets/images/marcame_wall_hanging.jpg',
         sellerName: 'KnotCraft',

@@ -7,6 +7,7 @@ class UserProvider with ChangeNotifier {
   String? _email;
   List<Order> _orders = [];
   List<Product> _favorites = [];
+  List<Product> _myProducts = [];
   final List<Map<String, dynamic>> _shippingAddresses = [
     {
       'name': 'Home',
@@ -37,6 +38,7 @@ class UserProvider with ChangeNotifier {
   String? get email => _email;
   List<Order> get orders => _orders;
   List<Product> get favorites => _favorites;
+  List<Product> get myProducts => _myProducts;
   List<Map<String, dynamic>> get shippingAddresses => _shippingAddresses;
   List<Map<String, dynamic>> get paymentMethods => _paymentMethods;
 
@@ -67,6 +69,17 @@ class UserProvider with ChangeNotifier {
     _email = null;
     _orders = [];
     _favorites = [];
+    _myProducts = [];
+    notifyListeners();
+  }
+
+  void addProduct(Product product) {
+    _myProducts.add(product);
+    notifyListeners();
+  }
+
+  void removeProduct(String productId) {
+    _myProducts.removeWhere((p) => p.id == productId);
     notifyListeners();
   }
 
